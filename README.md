@@ -12,10 +12,10 @@ Amrutvahini College of Engineering, Sangamner
 ## Authors and Contact Information
 
 ```
-Ms. Parineeta Pareek        | parineetapareek215@gmail.com
-Mr. Mitanshu Shinde        | mitanshushinde9@gmail.com.com
-Ms. Gauri Mahale           | gaurimahale23@gmail.com
-Mr. Vedant Naikwadi        | nvedant382@gmail.co
+Ms. Parineeta Pareek         parineetapareek215@gmail.com
+Mr. Mitanshu Shinde          mitanshushinde9@gmail.com.com
+Ms. Gauri Mahale             gaurimahale23@gmail.com
+Mr. Vedant Naikwadi          nvedant382@gmail.co
 
 Department of Computer Engineering
 Amrutvahini College of Engineering, Sangamner
@@ -213,4 +213,5 @@ This system is intended strictly for academic research use. It must not be deplo
 Academic and educational use only.
 
 End of README
+
 
