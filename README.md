@@ -1,35 +1,23 @@
 # AI-Driven Early Diagnosis of Rare Genetic Disorders Using Genomic Data
 
----
-
 ## Project Title
 
 AI-Driven Early Diagnosis of Rare Genetic Disorders Using Genomic Data
-
----
 
 ## Institution
 
 Department of Computer Engineering  
 Amrutvahini College of Engineering, Sangamner
 
----
-
 ## Authors and Contact Information
 
-Ms. Parineeta Pareek 
-Mr. Mitanshu Shinde  
-Ms. Gauri Mahale  
-Mr. Vedant Naikwadi  
+Ms. Parineeta Pareek        | parineetapareek215@gmail.com  
+Mr. Mitanshu Shinde        | mitanshushinde9@gmail.com.com  
+Ms. Gauri Mahale           | gaurimahale23@gmail.com  
+Mr. Vedant Naikwadi        | nvedant382@gmail.co  
 
-Emails:
-
-parineetapareek215@gmail.com
-mitanshushinde9@gmail.com.com 
-gaurimahale23@gmail.com   
-nvedant382@gmail.co  
-
----
+Department of Computer Engineering  
+Amrutvahini College of Engineering, Sangamner
 
 ## Abstract
 
@@ -39,8 +27,6 @@ Advances in artificial intelligence (AI) and machine learning (ML) enable the in
 
 The framework emphasizes interpretability, reproducibility, scalability, and clinical decision support, providing a structured roadmap for AI-enabled rare disease genomics.
 
----
-
 ## Operating System and Python Requirements
 
 This project is officially supported on:
@@ -49,8 +35,6 @@ Windows 11
 Python 3.11.x  
 
 Use of other operating systems or Python versions is not guaranteed to work without modification.
-
----
 
 ## Virtual Environment Setup
 
@@ -63,8 +47,6 @@ Upgrade pip:
 
 python -m pip install --upgrade pip  
 
----
-
 ## Dependency Installation
 
 Install all required libraries using:
@@ -75,84 +57,64 @@ pip install pandas numpy scikit-learn matplotlib seaborn
 pip install tqdm joblib requests  
 pip install biopython cyvcf2 pysam openpyxl pyyaml  
 
----
-
 ## Repository Folder Structure
-
-The project follows a structured and modular layout:
 
 Genetic_Disorder_Detection/
 
-├── src/  
-│   ├── server.py  
-│   ├── train_neural_model.py  
-│   ├── train_random_forest.py  
-│   ├── preprocessing/  
-│   │   ├── parse_vcf.py  
-│   │   ├── annotate_variants.py  
-│   │   ├── hpo_encoding.py  
-│   │   └── feature_builder.py  
-│  
-├── data/  
-│   ├── raw/  
-│   └── processed/  
-│  
-├── models/  
-│  
-├── uploads/  
-│  
-├── Statistics/  
-│   └── diagrams/  
 ├── src/
-│   ├── train.py                # Training pipeline (CUDA)
-│   ├── app.py                  # Flask API
-│   ├── parser.py               # VCF + HPOA parsing logic
-│   └── utils.py                # Shared utilities
-│ 
-├── requirements.txt  
-├── README.md  
-└── .gitignore  
-
----
+│   ├── server.py
+│   ├── train_neural_model.py
+│   ├── train_random_forest.py
+│   ├── preprocessing/
+│   │   ├── parse_vcf.py
+│   │   ├── annotate_variants.py
+│   │   ├── hpo_encoding.py
+│   │   └── feature_builder.py
+│
+├── data/
+│   ├── raw/
+│   └── processed/
+│
+├── models/
+│
+├── uploads/
+│
+├── Statistics/
+│   └── diagrams/
+│
+├── requirements.txt
+├── README.md
+└── .gitignore
 
 ## System Architecture Overview
 
-1. User uploads a VCF file through the REST API.  
-2. The server parses all genomic variants.  
-3. Gene symbols are extracted from annotations.  
-4. Clinical features are encoded using HPO terms.  
-5. Numerical feature vectors are generated.  
-6. Prediction models are executed.  
-7. Probabilities are aggregated across variants.  
-8. Top-ranked diseases are selected.  
-9. Associated genes are retrieved.  
-10. Confidence thresholds are applied.  
-11. Results are returned in JSON format.
-
----
+1. User uploads a VCF file through the REST API  
+2. The server parses genomic variants  
+3. Gene symbols are extracted  
+4. Phenotype features are encoded using HPO  
+5. Feature vectors are constructed  
+6. Predictive models are executed  
+7. Probabilities are aggregated  
+8. Diseases are ranked  
+9. Genes are mapped  
+10. Confidence thresholds applied  
+11. Results returned as JSON  
 
 ## Running the Inference Server
 
-To launch the Flask-based backend:
-
 python src/server.py  
 
-The service will be available at:
+Service URL:
 
 http://127.0.0.1:5000  
-
----
 
 ## API Endpoint Description
 
 POST /predict_vcf  
 
-The endpoint accepts a multipart-form request containing:
+Multipart form-data:
 
-Key: file  
-Value: patient_sample.vcf  
-
----
+file = patient_sample.vcf  
 
 ## Response Format
 
@@ -168,96 +130,79 @@ status: DISEASE_DETECTED
 top_predictions: ranked disease list  
 variants_processed: count  
 
----
-
 ## Data Preparation Workflow
 
-1. Download curated variant datasets such as ClinVar.  
-2. Obtain phenotype-disease associations from HPOA.  
-3. Merge variant and phenotype tables using disease identifiers.  
-4. Remove ultra-rare classes to stabilize training.  
-5. Encode categorical genomic attributes numerically.  
-6. Normalize sequencing depth and genotype quality.  
-7. Construct final machine-learning feature matrices.  
-8. Store processed datasets inside data/processed.
-
----
+1. Acquire ClinVar and gnomAD datasets  
+2. Collect HPO disease associations  
+3. Merge datasets  
+4. Remove ultra-rare labels  
+5. Encode chromosomes and bases  
+6. Encode genotype states  
+7. Normalize sequencing depth and quality  
+8. Construct ML-ready matrices  
+9. Save to data/processed  
 
 ## Random Forest Training Methodology
 
-The Random Forest model is used as a transparent and interpretable baseline classifier. It is trained using thousands of labeled genomic variants and disease associations.
+The Random Forest model is used as an interpretable and clinically explainable baseline classifier.
 
-Key characteristics:
+Key strengths:
 
-• Ensemble of decision trees  
-• Bagging-based variance reduction  
-• Class-weight balancing for rare diseases  
-• Feature importance extraction  
-• Robust to noisy genomic signals  
+Ensemble learning  
+Resistance to overfitting  
+Class balancing  
+Feature-importance extraction  
+Noise tolerance  
 
-Training pipeline stages include:
+Training stages:
 
-• Dataset loading and validation  
-• Feature extraction  
-• Label encoding  
-• Stratified train-validation split  
-• Hyperparameter optimization  
-• Model fitting  
-• Performance evaluation  
-• Confusion matrix analysis  
-• Feature-importance ranking  
-• Serialization of trained models  
-• Archival of evaluation statistics  
-
----
+Dataset loading  
+Feature validation  
+Encoding  
+Stratified splitting  
+Hyperparameter tuning  
+Model fitting  
+Evaluation  
+Confusion matrix analysis  
+Importance ranking  
+Model serialization  
+Metrics archiving  
 
 ## Evaluation Metrics
-
-Models are evaluated using:
 
 Accuracy  
 Macro Precision  
 Macro Recall  
 Macro F1-score  
-Per-class confusion matrices  
-Probability calibration curves  
-
----
+Confusion matrices  
+Calibration analysis  
 
 ## Reproducibility and Experiment Tracking
 
-To ensure reproducible research:
+Fix seeds  
+Log dataset versions  
+Store encoders  
+Persist models  
+Archive metrics  
+Track configuration files  
+Version experiments  
 
-• Fix random seeds during training  
-• Record dataset versions  
-• Archive preprocessing scripts  
-• Save encoders and label mappings  
-• Persist trained models  
-• Track metrics across experiments  
-• Version-control configurations  
+## Ethical and Clinical Disclaimer
 
----
-
-
----
+This system is for research use only. It must not be deployed clinically without regulatory approval. Predictions should never replace professional genetic consultation.
 
 ## Future Extensions
 
-Planned future work includes:
-
-• Integration of Symptom sequencing datasets  
-• HPO-based phenotype similarity models  
-• XGBoost and LightGBM classifiers  
-• Ensemble-based decision fusion  
-• Web dashboard visualization  
-• Clinical reporting modules  
-
----
+Integration of large exome datasets  
+HPO similarity engines  
+Gradient boosting models  
+Deep transformers  
+Model ensembles  
+Visualization dashboards  
+Clinical reporting systems  
 
 ## License
 
+Academic and educational use only.
 
-
----
-
-End of README.
+End of README
