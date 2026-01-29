@@ -11,13 +11,15 @@ Amrutvahini College of Engineering, Sangamner
 
 ## Authors and Contact Information
 
-Ms. Parineeta Pareek        | parineetapareek215@gmail.com  
-Mr. Mitanshu Shinde        | mitanshushinde9@gmail.com.com  
-Ms. Gauri Mahale           | gaurimahale23@gmail.com  
-Mr. Vedant Naikwadi        | nvedant382@gmail.co  
+```
+Ms. Parineeta Pareek        | parineetapareek215@gmail.com
+Mr. Mitanshu Shinde        | mitanshushinde9@gmail.com.com
+Ms. Gauri Mahale           | gaurimahale23@gmail.com
+Mr. Vedant Naikwadi        | nvedant382@gmail.co
 
-Department of Computer Engineering  
+Department of Computer Engineering
 Amrutvahini College of Engineering, Sangamner
+```
 
 ## Abstract
 
@@ -29,36 +31,37 @@ The framework emphasizes interpretability, reproducibility, scalability, and cli
 
 ## Operating System and Python Requirements
 
-This project is officially supported on:
-
-Windows 11  
-Python 3.11.x  
-
-Use of other operating systems or Python versions is not guaranteed to work without modification.
+```
+Windows 11
+Python 3.11.x
+```
 
 ## Virtual Environment Setup
 
-From Windows PowerShell or Command Prompt:
-
-python -m venv venv311  
-venv311\Scripts\activate  
+```
+python -m venv venv311
+venv311\Scripts\activate
+```
 
 Upgrade pip:
 
-python -m pip install --upgrade pip  
+```
+python -m pip install --upgrade pip
+```
 
 ## Dependency Installation
 
-Install all required libraries using:
-
-pip install flask flask-cors  
-pip install torch torchvision torchaudio  
-pip install pandas numpy scikit-learn matplotlib seaborn  
-pip install tqdm joblib requests  
-pip install biopython cyvcf2 pysam openpyxl pyyaml  
+```
+pip install flask flask-cors
+pip install torch torchvision torchaudio
+pip install pandas numpy scikit-learn matplotlib seaborn
+pip install tqdm joblib requests
+pip install biopython cyvcf2 pysam openpyxl pyyaml
+```
 
 ## Repository Folder Structure
 
+```
 Genetic_Disorder_Detection/
 
 ├── src/
@@ -85,62 +88,75 @@ Genetic_Disorder_Detection/
 ├── requirements.txt
 ├── README.md
 └── .gitignore
+```
 
 ## System Architecture Overview
 
 1. User uploads a VCF file through the REST API  
 2. The server parses genomic variants  
-3. Gene symbols are extracted  
+3. Gene symbols are extracted from annotations  
 4. Phenotype features are encoded using HPO  
 5. Feature vectors are constructed  
 6. Predictive models are executed  
-7. Probabilities are aggregated  
+7. Probabilities are aggregated across variants  
 8. Diseases are ranked  
-9. Genes are mapped  
-10. Confidence thresholds applied  
-11. Results returned as JSON  
+9. Associated genes are mapped  
+10. Confidence thresholds are applied  
+11. Results are returned as JSON  
 
 ## Running the Inference Server
 
-python src/server.py  
+```
+python src/server.py
+```
 
 Service URL:
 
-http://127.0.0.1:5000  
+```
+http://127.0.0.1:5000
+```
 
 ## API Endpoint Description
 
-POST /predict_vcf  
+```
+POST /predict_vcf
+```
 
 Multipart form-data:
 
-file = patient_sample.vcf  
+```
+file = patient_sample.vcf
+```
 
 ## Response Format
 
 Healthy case:
 
-status: HEALTHY  
-variants_processed: count  
-affected_genes: empty list  
+```
+status: HEALTHY
+variants_processed: count
+affected_genes: []
+```
 
 Disease detected:
 
-status: DISEASE_DETECTED  
-top_predictions: ranked disease list  
-variants_processed: count  
+```
+status: DISEASE_DETECTED
+top_predictions: ranked disease list
+variants_processed: count
+```
 
 ## Data Preparation Workflow
 
 1. Acquire ClinVar and gnomAD datasets  
 2. Collect HPO disease associations  
-3. Merge datasets  
+3. Merge variant and phenotype tables  
 4. Remove ultra-rare labels  
-5. Encode chromosomes and bases  
+5. Encode chromosomes and nucleotide bases  
 6. Encode genotype states  
-7. Normalize sequencing depth and quality  
-8. Construct ML-ready matrices  
-9. Save to data/processed  
+7. Normalize sequencing depth and genotype quality  
+8. Construct machine-learning matrices  
+9. Save datasets into data/processed  
 
 ## Random Forest Training Methodology
 
@@ -148,25 +164,25 @@ The Random Forest model is used as an interpretable and clinically explainable b
 
 Key strengths:
 
-Ensemble learning  
-Resistance to overfitting  
-Class balancing  
-Feature-importance extraction  
-Noise tolerance  
+• Ensemble learning  
+• Resistance to overfitting  
+• Class balancing  
+• Feature-importance extraction  
+• Noise tolerance  
 
 Training stages:
 
-Dataset loading  
-Feature validation  
-Encoding  
-Stratified splitting  
-Hyperparameter tuning  
-Model fitting  
-Evaluation  
-Confusion matrix analysis  
-Importance ranking  
-Model serialization  
-Metrics archiving  
+• Dataset loading  
+• Feature validation  
+• Encoding  
+• Stratified splitting  
+• Hyperparameter tuning  
+• Model fitting  
+• Evaluation  
+• Confusion matrix analysis  
+• Feature-importance ranking  
+• Model serialization  
+• Metrics archiving  
 
 ## Evaluation Metrics
 
@@ -179,27 +195,18 @@ Calibration analysis
 
 ## Reproducibility and Experiment Tracking
 
-Fix seeds  
+Fix random seeds  
 Log dataset versions  
 Store encoders  
-Persist models  
+Persist trained models  
 Archive metrics  
 Track configuration files  
 Version experiments  
 
 ## Ethical and Clinical Disclaimer
 
-This system is for research use only. It must not be deployed clinically without regulatory approval. Predictions should never replace professional genetic consultation.
+This system is intended strictly for academic research use. It must not be deployed clinically without regulatory approval. Predictions must never replace professional genetic counseling.
 
-## Future Extensions
-
-Integration of large exome datasets  
-HPO similarity engines  
-Gradient boosting models  
-Deep transformers  
-Model ensembles  
-Visualization dashboards  
-Clinical reporting systems  
 
 ## License
 
