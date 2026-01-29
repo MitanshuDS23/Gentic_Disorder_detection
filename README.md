@@ -69,10 +69,10 @@ Genetic_Disorder_Detection/
 │   ├── train_neural_model.py
 │   ├── train_random_forest.py
 │   ├── preprocessing/
-│   │   ├── parse_vcf.py
-│   │   ├── annotate_variants.py
-│   │   ├── hpo_encoding.py
-│   │   └── feature_builder.py
+│   │   ├── Build_csv.py
+│   │   ├── clean_csv.py
+│   │   ├── compress_vcf.py
+│   │   └── intro.py
 │
 ├── data/
 │   ├── raw/
@@ -213,3 +213,4 @@ This system is intended strictly for academic research use. It must not be deplo
 Academic and educational use only.
 
 End of README
+
