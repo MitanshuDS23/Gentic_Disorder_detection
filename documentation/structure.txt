@@ -1,0 +1,26 @@
+genomic-disease-predictor/
+│
+├── venv/                       # Python virtual environment
+│
+├── data/
+│   ├── raw/
+│   │   ├── clinvar.vcf         # ClinVar VCF (full dataset)
+│   │   └── phenotype.hpoa      # HPO ↔ OMIM disease file
+│   │
+│   ├── processed/
+│   │   ├── clinvar_parsed.csv
+│   │   ├── disease_hpo_map.csv
+│   │   └── training_vectors.pt
+│
+├── model/
+│   ├── disease_model.pt        # Trained PyTorch model
+│   └── label_encoder.pkl
+│
+├── src/
+│   ├── train.py                # Training pipeline (CUDA)
+│   ├── app.py                  # Flask API
+│   ├── parser.py               # VCF + HPOA parsing logic
+│   └── utils.py                # Shared utilities
+│
+├── requirements.txt
+└── README.md

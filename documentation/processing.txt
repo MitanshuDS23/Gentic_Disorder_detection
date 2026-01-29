@@ -1,0 +1,184 @@
+TOPIC :
+AI-Driven Early Diagnosis of Rare Genetic
+Disorders Using Genomic Data
+Ms. Parineeta Pareek2, Ms. Gauri Mahale3, Mr. Mitanshu Shinde, Mr. Vedant Naikwadi5
+Department of Computer Engineering, Amrutvahini College of Engineering, Sangamner,
+
+
+TITLE: Model Serving and Inference Pipeline Explanation
+
+Abstract:
+Rare genetic disorders present significant diagnos
+tic challenges due to low prevalence, heterogeneous clinical
+manifestations, and complex genomic architectures. Traditional
+approaches, including linkage analysis and positional cloning,
+are often time-consuming, limited in scalability, and insufficient
+for comprehensive variant interpretation. Advances in artificial
+intelligence (AI) and machine learning (ML) offer promising
+solutions by enabling the integration of genomic and phenotypic
+data for efficient variant prioritization. This paper proposes an
+interpretable, Random Forest–based pipeline for early diagnosis
+of rare genetic disorders. The system accepts patient Variant Call
+Format (VCF) files and clinical symptoms encoded using Human
+Phenotype Ontology (HPO) terms, annotates variants with multi
+database resources (ClinVar, gnomAD, dbVar), applies com
+putational pathogenicity predictors (SIFT, PolyPhen-2, CADD),
+and integrates phenotype similarity scores to generate a ranked
+list of candidate variants. By combining variant-level evidence
+with phenotype-driven prioritization and interpretable model
+outputs, the proposed framework aims to improve diagnostic
+yield and support clinical decision-making. Opportunities for
+collaboration with genomic research institutions and industry
+partners are identified to facilitate dataset access, model vali
+dation, and translational implementation. This work provides a
+structured roadmap for integrating AI into rare disease genom
+
+----------------------------------------
+OVERVIEW
+----------------------------------------
+
+The inference server exposes a REST API that:
+
+1) Receives VCF files
+2) Saves uploads
+3) Parses variants
+4) Converts them to numeric features
+5) Runs the trained model
+6) Aggregates predictions
+7) Returns JSON results
+
+----------------------------------------
+LIBRARIES USED
+----------------------------------------
+
+Web server:
+- flask -> REST API framework
+- flask_cors -> allow frontend communication
+
+Data handling:
+- pandas -> lookup disease names
+
+Machine learning:
+- torch -> load model and run inference
+
+----------------------------------------
+STEP 1: LOAD TRAINED ARTIFACTS
+----------------------------------------
+
+At startup the server loads:
+
+- disease_model.pt
+- gene_encoder.pt
+- disease_encoder.pt
+
+The neural network architecture is rebuilt exactly as in training.
+
+Input dimension is read from the saved checkpoint to avoid mismatch.
+
+----------------------------------------
+STEP 2: FILE UPLOAD HANDLING
+----------------------------------------
+
+The API endpoint:
+
+POST /predict_vcf
+
+Receives a multipart/form-data request with:
+
+key = "file"
+
+The file is saved into:
+
+/upload/
+
+for inspection and debugging.
+
+----------------------------------------
+STEP 3: PARSE VCF FILE
+----------------------------------------
+
+A simple parser reads:
+
+- chromosome
+- position
+- reference allele
+- alternate allele
+- genotype fields (GT, DP, GQ)
+
+Header lines starting with "#" are skipped.
+
+----------------------------------------
+STEP 4: FEATURE ENGINEERING FOR INFERENCE
+----------------------------------------
+
+VCF files do not contain phenotype information.
+
+However, the training model expects a very large feature vector.
+
+Therefore:
+
+- First 7 features come from VCF
+- Remaining features are padded with zeros
+
+This preserves the shape expected by the neural network.
+
+----------------------------------------
+STEP 5: RUN MODEL INFERENCE
+----------------------------------------
+
+For each variant:
+
+- tensor is created
+- moved to GPU if available
+- model outputs logits
+- softmax converts to probabilities
+- argmax chooses disease class
+
+The predicted index is converted back to a disease ID
+using the saved DiseaseEncoder.
+
+----------------------------------------
+STEP 6: AGGREGATE RESULTS
+----------------------------------------
+
+Each variant votes for a disease.
+
+Votes are counted across the file.
+
+Top diseases with highest counts are returned.
+
+----------------------------------------
+STEP 7: RETURN JSON RESPONSE
+----------------------------------------
+
+Response format:
+
+{
+  "variants_processed": 120,
+  "top_diseases": [
+     {
+       "disease_id": "...",
+       "disease_name": "...",
+       "hits": 15
+     }
+  ]
+}
+
+----------------------------------------
+GOAL ACHIEVED
+----------------------------------------
+
+The system allows:
+
+Raw genomic data (VCF)
+-> automated disease ranking
+-> API response for frontend display.
+
+----------------------------------------
+LIMITATIONS
+----------------------------------------
+
+- VCF lacks phenotype annotations
+- Zero-padding reduces prediction reliability
+- No variant effect predictors
+- Research prototype only

@@ -1,0 +1,3 @@
+Installation Command :
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121 
+ pip install flask pandas numpy scikit-learn tqdm pysam joblib

@@ -1,0 +1,178 @@
+TOPIC :
+AI-Driven Early Diagnosis of Rare Genetic
+Disorders Using Genomic Data
+Ms. Parineeta Pareek, Ms. Gauri Mahale, Mr. Mitanshu Shinde, Mr. Vedant Naikwadi5
+Department of Computer Engineering, Amrutvahini College of Engineering, Sangamner,
+
+
+
+TITLE: Model Training Pipeline Explanation
+
+
+----------------------------------------
+OVERVIEW
+----------------------------------------
+
+The training pipeline builds a machine learning model that can predict
+genetic diseases from curated ClinVar and HPO datasets.
+
+It performs:
+
+1) Data loading
+2) Feature engineering
+3) Encoding biological labels
+4) Neural network training
+5) Saving trained artifacts
+
+----------------------------------------
+LIBRARIES USED
+----------------------------------------
+
+Python standard:
+- os        -> file paths
+- pandas   -> CSV reading and merging
+
+Machine learning:
+- torch (PyTorch) -> neural networks and GPU training
+- sklearn.preprocessing:
+      LabelEncoder -> encode genes and diseases
+      MultiLabelBinarizer -> encode HPO terms
+- sklearn.model_selection:
+      train_test_split -> create validation sets
+
+----------------------------------------
+STEP 1: LOAD DATA
+----------------------------------------
+
+The CSV file contains curated genomic information:
+
+- gene symbol
+- genomic position
+- disease identifier
+- HPO phenotype IDs
+- ClinVar severity weight
+
+pandas reads the CSV into a DataFrame for processing.
+
+----------------------------------------
+STEP 2: ENCODE CATEGORICAL DATA
+----------------------------------------
+
+Genes and diseases are text values.
+Neural networks only work with numbers.
+
+Therefore:
+
+GeneEncoder:
+- maps gene symbols to integers
+
+DiseaseEncoder:
+- maps disease IDs to integer class labels
+
+These mappings are saved so inference uses the same numbering.
+
+----------------------------------------
+STEP 3: VECTORIZE HPO TERMS
+----------------------------------------
+
+Each disease can have many phenotype terms.
+
+MultiLabelBinarizer converts:
+
+[HP:0001250, HP:0004322]
+
+into a long binary vector:
+
+[0,1,0,0,1,0,0,...]
+
+This allows phenotypes to be part of the model input.
+
+----------------------------------------
+STEP 4: BUILD FEATURE MATRIX
+----------------------------------------
+
+Final input vector for each row:
+
+[
+  gene_encoded,
+  genomic_position,
+  clinvar_weight,
+  HPO_binary_vector...
+]
+
+This results in thousands of numerical features.
+
+----------------------------------------
+STEP 5: TRAIN / VALIDATION SPLIT
+----------------------------------------
+
+The dataset is split:
+
+- 85% training
+- 15% validation
+
+PyTorch Dataset and DataLoader manage batching and shuffling.
+
+----------------------------------------
+STEP 6: MODEL ARCHITECTURE
+----------------------------------------
+
+A fully connected neural network:
+
+Input layer -> 512 neurons -> 256 neurons -> output layer
+
+ReLU activation is used for non-linearity.
+Dropout is used to reduce overfitting.
+
+Output layer size equals number of diseases.
+
+----------------------------------------
+STEP 7: TRAINING LOOP
+----------------------------------------
+
+For each epoch:
+
+- forward pass
+- loss calculation
+- gradient backpropagation
+- optimizer update
+
+Loss function:
+- CrossEntropyLoss
+
+Optimizer:
+- Adam
+
+GPU is used automatically when available.
+
+----------------------------------------
+STEP 8: SAVE TRAINED ARTIFACTS
+----------------------------------------
+
+After training:
+
+Saved to /models:
+
+- disease_model.pt
+- gene_encoder.pt
+- disease_encoder.pt
+- hpo_vectorizer.pt
+
+These must always be reused for inference.
+
+----------------------------------------
+GOAL ACHIEVED
+----------------------------------------
+
+At the end of training:
+
+The system can take curated genomic + phenotype data
+and output the most likely disease class.
+
+----------------------------------------
+LIMITATIONS
+----------------------------------------
+
+- Depends heavily on curated ClinVar relationships
+- Not suitable for raw sequencing without annotation
+- Research prototype, not clinical software
