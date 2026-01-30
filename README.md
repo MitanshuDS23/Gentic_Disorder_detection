@@ -77,10 +77,10 @@ Genetic_Disorder_Detection/
 │   ├── train.py
 │   ├── utils.py
 ├── preprocessing/
-│   │   ├── Build_csv.py
-│   │   ├── clean_csv.py
-│   │   ├── compress_vcf.py
-│   │   └── intro.py
+│    ├── Build_csv.py
+│    ├── clean_csv.py
+│    ├── compress_vcf.py
+│    └── intro.py
 │
 │
 ├── models/
@@ -223,6 +223,7 @@ This system is intended strictly for academic research use. It must not be deplo
 Academic and educational use only.
 
 End of README
+
 
 
 
