@@ -63,20 +63,25 @@ pip install biopython cyvcf2 pysam openpyxl pyyaml
 
 ```
 Genetic_Disorder_Detection/
-
+├── data/
+│   ├── raw/
+│   │   ├── clinvar.vcf         # ClinVar VCF (full dataset)
+│   │   └── phenotype.hpoa      # HPO ↔ OMIM disease file
+│   │
+│   ├── processed/
+│   │   ├── clinvar_parsed.csv
+│   │   ├── disease_hpo_map.csv
+│   │   └── training_vectors.pt
 ├── src/
-│   ├── server.py
-│   ├── train_neural_model.py
-│   ├── train_random_forest.py
-│   ├── preprocessing/
+│   ├── app.py.py
+│   ├── train.py
+│   ├── utils.py
+├── preprocessing/
 │   │   ├── Build_csv.py
 │   │   ├── clean_csv.py
 │   │   ├── compress_vcf.py
 │   │   └── intro.py
 │
-├── data/
-│   ├── raw/
-│   └── processed/
 │
 ├── models/
 │
@@ -107,7 +112,12 @@ Genetic_Disorder_Detection/
 ## Running the Inference Server
 
 ```
-python src/server.py
+python src/train.py
+```
+## Running the Inference Server
+
+```
+python src/app.py
 ```
 
 Service URL:
@@ -213,5 +223,6 @@ This system is intended strictly for academic research use. It must not be deplo
 Academic and educational use only.
 
 End of README
+
 
 
